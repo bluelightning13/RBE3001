@@ -60,7 +60,7 @@ for i = 0:100
     grid on % turns on the grid
     axis([-40 40 -40 40 -10 40]) % sets the axis limits - xmin xmax ymin ymax zmin zmax
     
-    fmesh(@(x,y) 0, [-15 15 -15 15]) % makes the ground plane in the plot
+    fmesh(@(x,y) 0*x, [-15 15 -15 15]) % makes the ground plane in the plot
     plot3(X,Y,Z, 'LineWidth',8, 'Color', 'k', 'Marker','.', 'MarkerSize', 50, 'MarkerEdgeColor', [0 0 0]) % plots the arm
     view(az, el); % sets the 3D view. 
     
