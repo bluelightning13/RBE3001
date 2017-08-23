@@ -28,15 +28,18 @@ for i = 0:100
     %% Calculating the kinematics
     % The position of the arm is returned as encoder tics (0->4095)
     % First the angle is found before Forward Kinematics is preformed
-
-    Encoder_1 = returnValues(1)% - oriEncValues(1)
-    Encoder_2 = returnValues(4)% - oriEncValues(2)
-    Encoder_3 = returnValues(7)% - oriEncValues(3)
-
+    PosNegEnc = [returnValues(1)/abs(returnValues(1)); returnValues(4)/abs(returnValues(4)); returnValues(7)/abs(returnValues(7))]
+    
+    Encoder_1 = mod(abs(returnValues(1)),4096)
+    Encoder_2 = mod(abs(returnValues(4)),4096)
+    Encoder_3 = mod(abs(returnValues(7)),4096)
+    
     ratio = (4095-0)/(360-0);
-    EncoderA_1 = ((Encoder_1/ratio))*(pi/180);
-    EncoderA_2 = ((Encoder_2/ratio))*(pi/180);
-    EncoderA_3 = ((Encoder_3/ratio))*(pi/180);
+    EncoderA_1 = ((Encoder_1/ratio))*(pi/180)*PosNegEnc(1);
+    EncoderA_2 = ((Encoder_2/ratio))*(pi/180)*PosNegEnc(2);
+    EncoderA_3 = ((Encoder_3/ratio))*(pi/180)*PosNegEnc(3);
+    
+    
 
     % Making the transform and rotation matricies
     T1 = [1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 25; 0, 0, 0, 1];
